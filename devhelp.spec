@@ -16,8 +16,8 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	0.13
-Release:	%mkrel 3
+Version:	0.14
+Release:	%mkrel 1
 License:	GPL
 Group:		Development/Other
 URL:		http://www.imendio.com/projects/devhelp/
@@ -102,23 +102,10 @@ rm -rf %{buildroot}
 
 %makeinstall_std
 
-# Menu entry 
-mkdir -p %{buildroot}/%{_menudir}
-cat >%{buildroot}/%{_menudir}/%{name} <<EOF
-?package(%{name}): command="%{_bindir}/devhelp" icon="devhelp.png" needs="X11" \
-section="More Applications/Development/Tools" title="DevHelp" longtitle="Developers Help program" xdg="true"
-EOF
-
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="X-MandrivaLinux-MoreApplications-Development-Tools" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/devhelp.desktop
-
-#icons
-mkdir -p %{buildroot}%{_miconsdir} %{buildroot}%{_iconsdir}
-install -m 644 -D       ui/%{name}.png %{buildroot}%{_liconsdir}/%{name}.png
-convert -geometry 32x32 ui/%{name}.png %{buildroot}%{_iconsdir}/%{name}.png
-convert -geometry 16x16 ui/%{name}.png %{buildroot}%{_miconsdir}/%{name}.png
 
 # owns this dir
 mkdir -p %{buildroot}%{_datadir}/%{name}/books
@@ -129,7 +116,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 rm -rf %{buildroot}
 
 %post
-%{update_menus}
 %define schemas devhelp
 %post_install_gconf_schemas %schemas
 
@@ -137,7 +123,6 @@ rm -rf %{buildroot}
 %preun_uninstall_gconf_schemas %schemas
 
 %postun
-%{clean_menus}
 
 %post -n %{lib_name} -p /sbin/ldconfig
 %postun -n %{lib_name} -p /sbin/ldconfig
@@ -150,14 +135,10 @@ rm -rf %{buildroot}
 %{_datadir}/applications/*
 %{_datadir}/devhelp
 %{_datadir}/icons/hicolor/*
-%{_menudir}/*
-%{_iconsdir}/%{name}.png
-%{_miconsdir}/%{name}.png
-%{_liconsdir}/%{name}.png
 
 %files -n %{lib_name}
 %defattr(-, root, root)
-%{_libdir}/*.so.*
+%{_libdir}/libdevhelp-%{api_version}.so.%{lib_major}*
 
 %files -n %{lib_name}-devel
 %defattr(-, root, root)
