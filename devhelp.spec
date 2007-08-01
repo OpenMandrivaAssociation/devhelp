@@ -1,8 +1,9 @@
 %define _requires_exceptions libnspr4\\|libplc4\\|libplds4\\|libnss\\|libsmime3\\|libsoftokn\\|libssl3\\|libgtkembedmoz\\|libxpcom
 
-%define lib_name %mklibname %{name}- %{api_version} %{lib_major}
 %define lib_major 0
 %define api_version 1
+%define libname %mklibname %{name}- %{api_version} %{lib_major}
+%define libnamedev %mklibname -d %{name}- %{api_version}
 
 %define build_with_firefox 1
 
@@ -17,7 +18,7 @@
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	0.15
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL
 Group:		Development/Other
 URL:		http://www.imendio.com/projects/devhelp/
@@ -55,24 +56,25 @@ natively with Gtk-doc (System used in GTK+ and GNOME for
 documentating APIs) and it is possible to create books for other
 documentation as well.
 
-%package -n %{lib_name}
+%package -n %{libname}
 Summary:	Dynamic libraries for devhelp
 Group:		%{group}
 Requires:	%{name} >= %{version}
 
-%description -n %{lib_name}
+%description -n %{libname}
 this package contains dynamic libraries for devhelp.
 
 
-%package -n %{lib_name}-devel
+%package -n %{libnamedev}
 Summary:	Static libraries, include files for devhelp
 Group:		Development/GNOME and GTK+
 Provides:	%{name}-devel = %{version}-%{release}
 Provides:	lib%{name}-%{api_version}-devel = %{version}-%{release}
-Requires:	%{lib_name} = %{version}-%{release}
+Requires:	%{libname} = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:  %mklibname -d %{name}- 1 0
 
-%description -n %{lib_name}-devel
+%description -n %{libnamedev}
 Static library and headers file for devhelp.
 
 %package -n %{name}-plugins
@@ -124,8 +126,8 @@ rm -rf %{buildroot}
 
 %postun
 
-%post -n %{lib_name} -p /sbin/ldconfig
-%postun -n %{lib_name} -p /sbin/ldconfig
+%post -n %{libname} -p /sbin/ldconfig
+%postun -n %{libname} -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(-, root, root)
@@ -136,11 +138,11 @@ rm -rf %{buildroot}
 %{_datadir}/devhelp
 %{_datadir}/icons/hicolor/*
 
-%files -n %{lib_name}
+%files -n %{libname}
 %defattr(-, root, root)
 %{_libdir}/libdevhelp-%{api_version}.so.%{lib_major}*
 
-%files -n %{lib_name}-devel
+%files -n %{libnamedev}
 %defattr(-, root, root)
 %{_libdir}/*.so
 %{_libdir}/*a
