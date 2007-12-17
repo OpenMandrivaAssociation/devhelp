@@ -24,7 +24,6 @@ Group:		Development/Other
 URL:		http://www.imendio.com/projects/devhelp/
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 %if %{build_with_firefox}
 %if %mdkversion < 200700
 Requires:	mozilla-firefox = %firefox_version
