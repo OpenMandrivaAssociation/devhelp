@@ -17,7 +17,7 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	0.18
+Version:	0.19
 Release:	%mkrel 1
 License:	GPL
 Group:		Development/Other
