@@ -17,7 +17,7 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	0.19
+Version:	0.19.1
 Release:	%mkrel 4
 License:	GPL
 Group:		Development/Other
@@ -87,9 +87,9 @@ Gedit plugins to use with Devhelp.
 
 %prep
 %setup -q
-touch *
 
 %build
+%define _disable_ld_no_undefined 1
 %configure2_5x --disable-install-schemas \
 %if %{build_with_firefox}
 %if %mdkversion < 200710
