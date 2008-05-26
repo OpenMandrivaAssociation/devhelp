@@ -89,7 +89,9 @@ Gedit plugins to use with Devhelp.
 %setup -q
 
 %build
+# firefox library is too messy, disabling for now:
 %define _disable_ld_no_undefined 1
+
 %configure2_5x --disable-install-schemas \
 %if %{build_with_firefox}
 %if %mdkversion < 200710
