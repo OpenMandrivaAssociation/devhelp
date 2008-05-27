@@ -21,7 +21,7 @@ Version:	0.19.1
 Release:	%mkrel 4
 License:	GPL
 Group:		Development/Other
-URL:		http://www.imendio.com/projects/devhelp/
+URL:		http://developer.imendio.com/wiki/Devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
