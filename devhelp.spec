@@ -18,7 +18,7 @@
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	0.19.1
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	GPL
 Group:		Development/Other
 URL:		http://developer.imendio.com/wiki/Devhelp
