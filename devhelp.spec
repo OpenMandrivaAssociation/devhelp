@@ -5,44 +5,27 @@
 %define libname %mklibname %{name}- %{api_version} %{lib_major}
 %define libnamedev %mklibname -d %{name}- %{api_version}
 
-%define build_with_firefox 1
-
-# Build with mozilla instead of firefox
-%{?_with_mozilla: %global build_with_firefox 0}
-%{?_without_mozilla: %global build_with_firefox 1}
-
-%if %build_with_firefox
-%define firefox_version %(rpm -q mozilla-firefox --queryformat %{VERSION})
-%endif
+%define xulrunner 1.9
 
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	0.19.1
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	GPL
 Group:		Development/Other
 URL:		http://developer.imendio.com/wiki/Devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
+#gw from Fedora, fix build with xulrunner
+Patch: devhelp-0.19-xulrunner.patch
+Patch1: devhelp-0.19-fix-linking.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-%if %{build_with_firefox}
-%if %mdkversion < 200700
-Requires:	mozilla-firefox = %firefox_version
-%else 
-Requires: 	%mklibname mozilla-firefox %{firefox_version}
-%endif
-%else
-Requires:	mozilla = %(rpm -q mozilla --queryformat %{VERSION})
-%endif
+Requires: 	%mklibname xulrunner %xulrunner
 BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
 BuildRequires:	libglade2.0-devel
 BuildRequires:	libGConf2-devel
-%if %{build_with_firefox}
-BuildRequires:  mozilla-firefox-devel
-%else
-BuildRequires:	mozilla-devel 
-%endif
+BuildRequires:	xulrunner-devel-unstable >= %xulrunner
 BuildRequires:	ImageMagick
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
@@ -87,17 +70,14 @@ Gedit plugins to use with Devhelp.
 
 %prep
 %setup -q
+%patch -p1 -b .libxul
+%patch1 -p1
+aclocal -I m4
+autoconf
+automake
 
 %build
-# firefox library is too messy, disabling for now:
-%define _disable_ld_no_undefined 1
-
-%configure2_5x --disable-install-schemas \
-%if %{build_with_firefox}
-%if %mdkversion < 200710
---with-mozilla=mozilla-firefox 
-%endif
-%endif
+%configure2_5x --with-gecko=libxul
 
 %make
 
