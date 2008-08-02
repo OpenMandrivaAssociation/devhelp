@@ -13,7 +13,7 @@ Version:	0.19.1
 Release:	%mkrel 7
 License:	GPL
 Group:		Development/Other
-URL:		http://developer.imendio.com/wiki/Devhelp
+URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
 #gw from Fedora, fix build with xulrunner
 Patch: devhelp-0.19-xulrunner.patch
