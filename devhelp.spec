@@ -9,16 +9,12 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	0.19.1
-Release:	%mkrel 7
-License:	GPL
+Version:	0.20
+Release:	%mkrel 1
+License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
-#gw from Fedora, fix build with xulrunner
-Patch: devhelp-0.19-xulrunner.patch
-Patch1: devhelp-0.19-fix-linking.patch
-
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires: 	%mklibname xulrunner %xulrunner
 BuildRequires:	libwnck-devel
@@ -70,14 +66,9 @@ Gedit plugins to use with Devhelp.
 
 %prep
 %setup -q
-%patch -p1 -b .libxul
-%patch1 -p1
-aclocal -I m4
-autoconf
-automake
 
 %build
-%configure2_5x --with-gecko=libxul
+%configure2_5x --with-gecko=libxul-embedding
 
 %make
 
