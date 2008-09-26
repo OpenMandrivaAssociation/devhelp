@@ -6,17 +6,19 @@
 %define libnamedev %mklibname -d %{name}- %{api_version}
 
 %define xulrunner 1.9
+%define xullibname %mklibname xulrunner %xulrunner
+%define xulver %(rpm -q --queryformat %%{VERSION} %xullibname)
 
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	0.21
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Requires: 	%mklibname xulrunner %xulrunner
+Requires: 	%xullibname = %xulver
 BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
 BuildRequires:	libglade2.0-devel
