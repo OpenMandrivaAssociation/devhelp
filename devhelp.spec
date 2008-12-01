@@ -1,13 +1,7 @@
-%define _requires_exceptions libnspr4\\|libplc4\\|libplds4\\|libnss\\|libsmime3\\|libsoftokn\\|libssl3\\|libgtkembedmoz\\|libxpcom
-
 %define lib_major 0
 %define api_version 1
 %define libname %mklibname %{name}- %{api_version} %{lib_major}
 %define libnamedev %mklibname -d %{name}- %{api_version}
-
-%define xulrunner 1.9
-%define xullibname %mklibname xulrunner %xulrunner
-%define xulver %(rpm -q --queryformat %%{VERSION} %xullibname)
 
 Summary:	API documentation browser for developers
 Name:		devhelp
@@ -18,12 +12,11 @@ Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Requires: 	%xullibname = %xulver
 BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
 BuildRequires:	libglade2.0-devel
 BuildRequires:	libGConf2-devel
-BuildRequires:	xulrunner-devel-unstable >= %xulrunner
+BuildRequires:  webkitgtk-devel
 BuildRequires:	ImageMagick
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
@@ -70,7 +63,7 @@ Gedit plugins to use with Devhelp.
 %setup -q
 
 %build
-%configure2_5x --with-gecko=libxul-embedding
+%configure2_5x
 
 %make
 
