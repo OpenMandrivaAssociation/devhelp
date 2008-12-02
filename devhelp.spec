@@ -20,6 +20,8 @@ BuildRequires:  webkitgtk-devel
 BuildRequires:	ImageMagick
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
+#gw libtool dep:
+BuildRequires:  dbus-glib-devel
 
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
