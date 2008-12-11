@@ -17,7 +17,7 @@ BuildRequires:	gtk+2-devel >= 2.3.1
 BuildRequires:	libglade2.0-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:  webkitgtk-devel
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 #gw libtool dep:
