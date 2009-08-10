@@ -11,6 +11,8 @@ License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
+Patch0:		devhelp-0.23-git-newer-webkit.patch
+Patch1:		devhelp-0.23-deprecation-workaround.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
@@ -63,6 +65,8 @@ Gedit plugins to use with Devhelp.
 
 %prep
 %setup -q
+%patch0 -p1 -b .webkit
+%patch1 -p1 -b .glib
 
 %build
 %configure2_5x
