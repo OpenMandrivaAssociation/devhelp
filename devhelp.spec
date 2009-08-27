@@ -6,7 +6,7 @@
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	0.23.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
@@ -14,10 +14,8 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.b
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
-BuildRequires:	libglade2.0-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:  webkitgtk-devel
-BuildRequires:	imagemagick
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 #gw libtool dep:
@@ -73,11 +71,6 @@ Gedit plugins to use with Devhelp.
 rm -rf %{buildroot}
 
 %makeinstall_std
-
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="X-MandrivaLinux-MoreApplications-Development-Tools" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/devhelp.desktop
 
 # owns this dir
 mkdir -p %{buildroot}%{_datadir}/%{name}/books
