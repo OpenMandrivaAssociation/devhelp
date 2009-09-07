@@ -1,12 +1,12 @@
-%define lib_major 0
+%define lib_major 1
 %define api_version 1
 %define libname %mklibname %{name}- %{api_version} %{lib_major}
 %define libnamedev %mklibname -d %{name}- %{api_version}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	0.23.1
-Release:	%mkrel 2
+Version:	2.27.92
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
