@@ -16,6 +16,7 @@ BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
 BuildRequires:	libGConf2-devel
 BuildRequires:  webkitgtk-devel
+BuildRequires:  unique-devel
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 #gw libtool dep:
