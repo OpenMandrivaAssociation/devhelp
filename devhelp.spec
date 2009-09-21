@@ -5,15 +5,12 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	2.27.92
-Release:	%mkrel 2
+Version:	2.28.0
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
-#gw https://bugzilla.gnome.org/show_bug.cgi?id=595567
-#https://qa.mandriva.com/show_bug.cgi?id=53773
-Patch: devhelp-dont-open-blank-page-on-startup.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libwnck-devel
 BuildRequires:	gtk+2-devel >= 2.3.1
@@ -65,7 +62,6 @@ Gedit plugins to use with Devhelp.
 
 %prep
 %setup -q
-%patch -p1
 
 %build
 %configure2_5x
@@ -85,12 +81,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %clean
 rm -rf %{buildroot}
 
-%post
-%define schemas devhelp
-%post_install_gconf_schemas %schemas
-
-%preun
-%preun_uninstall_gconf_schemas %schemas
 
 %postun
 
@@ -104,7 +94,6 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README INSTALL
-%_sysconfdir/gconf/schemas/devhelp.schemas
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/devhelp
