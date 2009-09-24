@@ -5,7 +5,7 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	2.28.0
+Version:	2.28.0.1
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Development/Other
@@ -81,19 +81,24 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %clean
 rm -rf %{buildroot}
 
+%post
+%define schemas %name
+%if %mdkversion < 200900
+%post_install_gconf_schemas %schemas
+%endif
 
-%postun
+%preun
+%preun_uninstall_gconf_schemas %schemas
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
 %endif
 
 %files -f %{name}.lang
 %defattr(-, root, root)
 %doc AUTHORS COPYING ChangeLog NEWS README INSTALL
+%_sysconfdir/gconf/schemas/devhelp.schemas
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/devhelp
