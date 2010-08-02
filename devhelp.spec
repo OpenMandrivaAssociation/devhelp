@@ -1,11 +1,11 @@
 %define lib_major 1
-%define api_version 1
+%define api_version 2
 %define libname %mklibname %{name}- %{api_version} %{lib_major}
 %define libnamedev %mklibname -d %{name}- %{api_version}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	2.30.1
+Version:	2.31.6
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Development/Other
@@ -13,7 +13,7 @@ URL:		http://developer.imendio.com/projects/devhelp
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 BuildRequires:	libwnck-devel
-BuildRequires:	gtk+2-devel >= 2.3.1
+BuildRequires:	gtk+2-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:  webkitgtk-devel
 BuildRequires:  unique-devel
@@ -83,17 +83,8 @@ rm -rf %{buildroot}
 
 %post
 %define schemas %name
-%if %mdkversion < 200900
-%post_install_gconf_schemas %schemas
-%endif
-
 %preun
 %preun_uninstall_gconf_schemas %schemas
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %files -f %{name}.lang
 %defattr(-, root, root)
@@ -113,7 +104,7 @@ rm -rf %{buildroot}
 %{_libdir}/*.so
 %{_libdir}/*a
 %{_libdir}/pkgconfig/*
-%{_includedir}/devhelp-1.0
+%{_includedir}/devhelp-%{api_version}.0
 
 %files -n %{name}-plugins
 %defattr(-, root, root)
