@@ -1,12 +1,12 @@
 %define lib_major 1
 %define api_version 2
-%define libname %mklibname %{name}- %{api_version} %{lib_major}
-%define libnamedev %mklibname -d %{name}- %{api_version}
+%define libname %mklibname %{name} %{api_version} %{lib_major}
+%define libnamedev %mklibname -d %{name}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	2.32.0
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
@@ -19,11 +19,6 @@ BuildRequires:  webkitgtk-devel
 BuildRequires:  unique-devel
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
-#gw libtool dep:
-BuildRequires:  dbus-glib-devel
-
-Requires(post): desktop-file-utils
-Requires(postun): desktop-file-utils
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -35,6 +30,7 @@ documentation as well.
 Summary:	Dynamic libraries for devhelp
 Group:		%{group}
 Requires:	%{name} >= %{version}
+Obsoletes:	%{_lib}devhelp-2_1 < %{version}-%{release}
 
 %description -n %{libname}
 this package contains dynamic libraries for devhelp.
@@ -48,6 +44,7 @@ Provides:	lib%{name}-%{api_version}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:  %mklibname -d %{name}- 1 0
+Obsoletes:	%{_lib}devhelp-2-devel < %{version}-%{release}
 
 %description -n %{libnamedev}
 Static library and headers file for devhelp.
