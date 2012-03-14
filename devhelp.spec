@@ -1,27 +1,27 @@
-%define lib_major 1
-%define api_version 2
-%define libname %mklibname %{name} %{api_version} %{lib_major}
-%define libnamedev %mklibname -d %{name}
+%define api		3
+%define major	0
+%define libname %mklibname %{name} %{api} %{major}
+%define develname %mklibname -d %{name}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	2.32.0
-Release:	%mkrel 5
+Version:	3.2.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://developer.imendio.com/projects/devhelp
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-BuildRequires:	libwnck-devel
-BuildRequires:	gtk+2-devel
-BuildRequires:	libGConf2-devel
-BuildRequires:  webkitgtk-devel
-BuildRequires:  unique-devel
-BuildRequires:  intltool
-BuildRequires:  desktop-file-utils
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/devhelp/%{name}-%{version}.tar.xz
+
+BuildRequires:	desktop-file-utils
+BuildRequires:	intltool
+BuildRequires:	pkgconfig(gconf-2.0)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gthread-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(webkitgtk-3.0)
 
 %description
-Devhelp is an API documentation browser for GNOME 2. It works
+Devhelp is an API documentation browser for GNOME. It works
 natively with Gtk-doc (System used in GTK+ and GNOME for
 documentating APIs) and it is possible to create books for other
 documentation as well.
@@ -29,25 +29,18 @@ documentation as well.
 %package -n %{libname}
 Summary:	Dynamic libraries for devhelp
 Group:		%{group}
-Requires:	%{name} >= %{version}
-Obsoletes:	%{_lib}devhelp-2_1 < %{version}-%{release}
 
 %description -n %{libname}
 this package contains dynamic libraries for devhelp.
 
-
-%package -n %{libnamedev}
-Summary:	Static libraries, include files for devhelp
+%package -n %{develname}
+Summary:	Development libraries, include files for devhelp
 Group:		Development/GNOME and GTK+
-Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-%{api_version}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
-Requires:	%{name} = %{version}-%{release}
-Obsoletes:  %mklibname -d %{name}- 1 0
-Obsoletes:	%{_lib}devhelp-2-devel < %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{libnamedev}
-Static library and headers file for devhelp.
+%description -n %{develname}
+Development library and headers file for devhelp.
 
 %package -n %{name}-plugins
 Summary:	Gedit Plugins for Devhelp
@@ -61,13 +54,12 @@ Gedit plugins to use with Devhelp.
 %setup -q
 
 %build
-%configure2_5x
+%configure2_5x \
+	--disable-static
 
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 # owns this dir
@@ -75,36 +67,22 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
-
-%post
-%define schemas %name
-%preun
-%preun_uninstall_gconf_schemas %schemas
-
 %files -f %{name}.lang
-%defattr(-, root, root)
-%doc AUTHORS COPYING ChangeLog NEWS README INSTALL
-%_sysconfdir/gconf/schemas/devhelp.schemas
+%doc AUTHORS NEWS README
+%{_sysconfdir}/gconf/schemas/devhelp.schemas
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/devhelp
 %{_datadir}/icons/hicolor/*
 
 %files -n %{libname}
-%defattr(-, root, root)
-%{_libdir}/libdevhelp-%{api_version}.so.%{lib_major}*
+%{_libdir}/libdevhelp-%{api}.so.%{major}*
 
-%files -n %{libnamedev}
-%defattr(-, root, root)
+%files -n %{develname}
 %{_libdir}/*.so
-%{_libdir}/*a
 %{_libdir}/pkgconfig/*
-%{_includedir}/devhelp-%{api_version}.0
+%{_includedir}/devhelp-%{api}.0
 
 %files -n %{name}-plugins
-%defattr(-, root, root)
-%{_libdir}/gedit-2/plugins/
-
+%{_libdir}/gedit/plugins/
 
