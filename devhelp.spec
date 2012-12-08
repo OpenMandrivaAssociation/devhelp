@@ -1,4 +1,4 @@
-%define lib_major 0
+%define lib_major 1
 %define api_version 3
 %define libname %mklibname %{name} %{api_version} %{lib_major}
 %define libnamedev %mklibname -d %{name}
@@ -7,12 +7,12 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.4.1
-Release:	%mkrel 1
+Version:	3.6.1
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://live.gnome.org/devhelp
-Source0:	http://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
+Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		devhelp-3.3.91-linking.patch
 BuildRequires:	pkgconfig(gconf-2.0) >= 2.6.0
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
@@ -70,11 +70,7 @@ NOCONFIGURE=1 gnome-autogen.sh
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
-
-find %{buildroot} -name '*.la' -delete
 
 # owns this dir
 mkdir -p %{buildroot}%{_datadir}/%{name}/books
