@@ -1,9 +1,9 @@
-%define lib_major 1
-%define api_version 3
-%define libname %mklibname %{name} %{api_version} %{lib_major}
-%define libnamedev %mklibname -d %{name}
-
 %define url_ver	%(echo %{version}|cut -d. -f1,2)
+
+%define api	3
+%define major	1
+%define libname %mklibname %{name} %{api} %{major}
+%define devname %mklibname -d %{name}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
@@ -11,19 +11,19 @@ Version:	3.6.1
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
-URL:		http://live.gnome.org/devhelp
+Url:		http://live.gnome.org/devhelp
 Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		devhelp-3.3.91-linking.patch
+
+BuildRequires:	desktop-file-utils
+BuildRequires:	gnome-common
+BuildRequires:	gettext-devel
+BuildRequires:	intltool
 BuildRequires:	pkgconfig(gconf-2.0) >= 2.6.0
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
 BuildRequires:	pkgconfig(webkitgtk-3.0)
-BuildRequires:	intltool
-BuildRequires:	desktop-file-utils
-#for gnome-autogen.sh
-BuildRequires:	gnome-common
-BuildRequires:	gettext-devel
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -34,22 +34,19 @@ documentation as well.
 %package -n %{libname}
 Summary:	Dynamic libraries for devhelp
 Group:		System/Libraries
-Requires:	%{name} >= %{version}
+Suggests:	%{name} = %{version}
 
 %description -n %{libname}
 this package contains dynamic libraries for devhelp.
 
-
-%package -n %{libnamedev}
+%package -n %{devname}
 Summary:	Development files and headers for devhelp
 Group:		Development/GNOME and GTK+
 Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-%{api_version}-devel = %{version}-%{release}
 Requires:	%{libname} = %{version}-%{release}
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	%{_lib}devhelp-2-devel < %{version}
 
-%description -n %{libnamedev}
+%description -n %{devname}
 This package contains the development files and headers for devhelp.
 
 %package -n %{name}-plugins
@@ -89,12 +86,13 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %files -n %{libname}
-%{_libdir}/lib%{name}-%{api_version}.so.%{lib_major}*
+%{_libdir}/lib%{name}-%{api}.so.%{major}*
 
-%files -n %{libnamedev}
-%{_libdir}/lib%{name}-%{api_version}.so
+%files -n %{devname}
+%{_libdir}/lib%{name}-%{api}.so
 %{_libdir}/pkgconfig/lib%{name}-3.0.pc
 %{_includedir}/devhelp-3.0/
 
 %files -n %{name}-plugins
 %{_libdir}/gedit/plugins/*
+
