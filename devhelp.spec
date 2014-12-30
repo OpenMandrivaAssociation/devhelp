@@ -24,6 +24,7 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
 BuildRequires:	pkgconfig(webkitgtk-3.0)
+BuildRequires:	pkgconfig(python2)
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -62,8 +63,9 @@ Gedit plugins to use with Devhelp.
 %apply_patches
 
 %build
+export PYTHON=%{__python2}
 NOCONFIGURE=1 gnome-autogen.sh
-%configure2_5x --disable-static
+%configure --disable-static
 %make
 
 %install
