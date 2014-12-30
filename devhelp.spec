@@ -65,9 +65,7 @@ Gedit plugins to use with Devhelp.
 %build
 export PYTHON=%{__python2}
 NOCONFIGURE=1 gnome-autogen.sh
-autoreconf --install
-intltoolize
-autoreconf
+intltoolize --force
 
 %configure --disable-static
 %make
