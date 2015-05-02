@@ -1,7 +1,7 @@
 %define url_ver	%(echo %{version}|cut -d. -f1,2)
 
 %define api	3
-%define major	1
+%define major	2
 %define libname %mklibname %{name} %{api} %{major}
 %define devname %mklibname -d %{name}
 
@@ -18,7 +18,6 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
-BuildRequires:	pkgconfig(gconf-2.0) >= 2.6.0
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
@@ -78,11 +77,14 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS README
-%{_sysconfdir}/gconf/schemas/devhelp.schemas
 %{_bindir}/*
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/GConf/gsettings/devhelp.convert
 %{_datadir}/devhelp
+%{_datadir}/appdata/devhelp.appdata.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
 
 %files -n %{libname}
 %{_libdir}/lib%{name}-%{api}.so.%{major}*
