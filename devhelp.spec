@@ -7,13 +7,12 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	 3.16.1
-Release:	8
+Version:	3.16.1
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
 Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
-Patch0:		devhelp-3.3.91-linking.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
@@ -24,7 +23,7 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
 BuildRequires:	pkgconfig(webkitgtk-3.0)
-BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(python3)
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -63,11 +62,7 @@ Gedit plugins to use with Devhelp.
 %apply_patches
 
 %build
-export PYTHON=%{__python2}
-NOCONFIGURE=1 gnome-autogen.sh
-intltoolize --force
-
-%configure --disable-static
+%configure
 %make
 
 %install
