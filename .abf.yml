@@ -1,4 +1,5 @@
 removed_sources:
+  devhelp-3.16.1.tar.xz: e0052631b2a81556a43b3d198e1ab5c0cc3eb0ab
   devhelp-3.6.1.tar.xz: 6fad299a63c8672a32cb9a4a8de2f0a9a656024e
 sources:
-  devhelp-3.16.1.tar.xz: e0052631b2a81556a43b3d198e1ab5c0cc3eb0ab
+  devhelp-3.18.1.tar.xz: 2831a0f244b821fb337f7520e1f79e27324246c2

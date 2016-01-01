@@ -1,4 +1,5 @@
 %define url_ver	%(echo %{version}|cut -d. -f1,2)
+%define _disable_rebuild_configure 1
 
 %define api	3
 %define major	2
@@ -7,8 +8,8 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.16.1
-Release:	2
+Version:	3.18.1
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
@@ -21,7 +22,7 @@ BuildRequires:	intltool
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
-BuildRequires:	pkgconfig(webkitgtk-3.0)
+BuildRequires:	pkgconfig(webkit2gtk-4.0)
 BuildRequires:	pkgconfig(python3)
 
 %description
@@ -78,13 +79,15 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %files -f %{name}.lang
 %doc AUTHORS NEWS README
 %{_bindir}/*
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/org.gnome.Devhelp.desktop
 %{_datadir}/GConf/gsettings/devhelp.convert
 %{_datadir}/devhelp
-%{_datadir}/appdata/devhelp.appdata.xml
+%{_datadir}/appdata/org.gnome.Devhelp.appdata.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
+%{_datadir}/dbus-1/services/org.gnome.Devhelp.service
+%{_mandir}/man1/devhelp.1.*
 
 %files -n %{libname}
 %{_libdir}/lib%{name}-%{api}.so.%{major}*
