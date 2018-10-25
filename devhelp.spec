@@ -2,13 +2,13 @@
 %define _disable_rebuild_configure 1
 
 %define api	3
-%define major	2
+%define major	6
 %define libname %mklibname %{name} %{api} %{major}
 %define devname %mklibname -d %{name}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.18.1
+Version:	3.30.1
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
@@ -23,7 +23,14 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
 BuildRequires:	pkgconfig(webkit2gtk-4.0)
-BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(gio-2.0) >= 2.37.3
+BuildRequires:	pkgconfig(gsettings-desktop-schemas)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
+BuildRequires:	intltool
+BuildRequires:	itstool
+BuildRequires:	libxml2-utils
+BuildRequires:	meson
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -56,25 +63,22 @@ Requires:	gedit
 
 %description -n %{name}-plugins
 Gedit plugins to use with Devhelp.
-
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
-%configure
-%make
+%meson -Denable_gtk_doc=true
+%meson_build
 
 %install
-%makeinstall_std
+%meson_install
+
+find %{buildroot} -name '*.la' -delete
 
 # owns this dir
 mkdir -p %{buildroot}%{_datadir}/%{name}/books
 
-%find_lang %{name}
-
-%preun
-%preun_uninstall_gconf_schemas %{name}
+%find_lang %{name} --with-gnome
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS README
