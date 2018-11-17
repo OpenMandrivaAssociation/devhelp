@@ -85,12 +85,14 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %doc AUTHORS NEWS README
 %{_bindir}/*
 %{_datadir}/applications/org.gnome.Devhelp.desktop
-%{_datadir}/GConf/gsettings/devhelp.convert
+#{_datadir}/GConf/gsettings/devhelp.convert
 %{_datadir}/devhelp
-%{_datadir}/appdata/org.gnome.Devhelp.appdata.xml
+%{_datadir}/applications/org.gnome.Devhelp.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
+#{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_iconsdir}/hicolor/*/apps/*.png
+%{_iconsdir}/hicolor/*/apps/*.svg
+#{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
 %{_datadir}/dbus-1/services/org.gnome.Devhelp.service
 %{_mandir}/man1/devhelp.1.*
 
