@@ -3,8 +3,10 @@
 
 %define api	3
 %define major	6
+%define gir_api 3.0
 %define libname %mklibname %{name} %{api} %{major}
 %define devname %mklibname -d %{name}
+%define libnamegir %mklibname %{name}-gir %{gir_api}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
@@ -64,6 +66,20 @@ Requires:	gedit
 
 %description -n %{name}-plugins
 Gedit plugins to use with Devhelp.
+
+%package -n %{libnamegir}
+Summary:        GObject Introspection interface description for devhelp
+Group:          System/Libraries
+
+%description -n %{libnamegir}
+GObject Introspection interface description for devhelp.
+
+%package -n %{name}-plugins
+Summary:	Gedit Plugins for Devhelp
+Group:		Editors
+Requires:	gedit
+Requires:	python3-gobject3
+
 %prep
 %autosetup -p1
 
@@ -89,12 +105,14 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_datadir}/devhelp
 %{_datadir}/applications/org.gnome.Devhelp.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.libdevhelp-3.gschema.xml
 #{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
 #{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
 %{_datadir}/dbus-1/services/org.gnome.Devhelp.service
 %{_mandir}/man1/devhelp.1.*
+%{_datadir}/metainfo/org.gnome.Devhelp.appdata.xml
 
 %files -n %{libname}
 %{_libdir}/lib%{name}-%{api}.so.%{major}*
@@ -102,7 +120,10 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %files -n %{devname}
 %{_libdir}/lib%{name}-%{api}.so
 %{_libdir}/pkgconfig/lib%{name}-3.0.pc
-#_includedir}/devhelp-3.0/
+%{_includedir}/%{name}-3
+
+%files -n %{libnamegir}
+%{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
 
 %files -n %{name}-plugins
 %{_libdir}/gedit/plugins/*
