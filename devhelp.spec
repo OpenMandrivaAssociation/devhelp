@@ -102,7 +102,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %files -n %{devname}
 %{_libdir}/lib%{name}-%{api}.so
 %{_libdir}/pkgconfig/lib%{name}-3.0.pc
-%{_includedir}/devhelp-3.0/
+#_includedir}/devhelp-3.0/
 
 %files -n %{name}-plugins
 %{_libdir}/gedit/plugins/*
