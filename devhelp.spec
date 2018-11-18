@@ -74,12 +74,6 @@ Group:          System/Libraries
 %description -n %{libnamegir}
 GObject Introspection interface description for devhelp.
 
-%package -n %{name}-plugins
-Summary:	Gedit Plugins for Devhelp
-Group:		Editors
-Requires:	gedit
-Requires:	python3-gobject3
-
 %prep
 %autosetup -p1
 
