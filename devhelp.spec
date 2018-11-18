@@ -2,14 +2,16 @@
 %define _disable_rebuild_configure 1
 
 %define api	3
-%define major	2
+%define major	6
+%define gir_api 3.0
 %define libname %mklibname %{name} %{api} %{major}
 %define devname %mklibname -d %{name}
+%define libnamegir %mklibname %{name}-gir %{gir_api}
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.18.1
-Release:	2
+Version:	3.30.1
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
@@ -19,11 +21,19 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
+BuildRequires:  pkgconfig(amtk-5)
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
 BuildRequires:	pkgconfig(webkit2gtk-4.0)
-BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(gio-2.0) >= 2.37.3
+BuildRequires:	pkgconfig(gsettings-desktop-schemas)
+BuildRequires:	pkgconfig(gobject-introspection-1.0)
+BuildRequires:	intltool
+BuildRequires:	itstool
+BuildRequires:	libxml2-utils
+BuildRequires:	meson
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -57,37 +67,46 @@ Requires:	gedit
 %description -n %{name}-plugins
 Gedit plugins to use with Devhelp.
 
+%package -n %{libnamegir}
+Summary:        GObject Introspection interface description for devhelp
+Group:          System/Libraries
+
+%description -n %{libnamegir}
+GObject Introspection interface description for devhelp.
+
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
-%configure
-%make
+%meson -Denable_gtk_doc=true
+%meson_build
 
 %install
-%makeinstall_std
+%meson_install
+
+find %{buildroot} -name '*.la' -delete
 
 # owns this dir
 mkdir -p %{buildroot}%{_datadir}/%{name}/books
 
-%find_lang %{name}
-
-%preun
-%preun_uninstall_gconf_schemas %{name}
+%find_lang %{name} --with-gnome
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS README
 %{_bindir}/*
 %{_datadir}/applications/org.gnome.Devhelp.desktop
-%{_datadir}/GConf/gsettings/devhelp.convert
+#{_datadir}/GConf/gsettings/devhelp.convert
 %{_datadir}/devhelp
-%{_datadir}/appdata/org.gnome.Devhelp.appdata.xml
+%{_datadir}/applications/org.gnome.Devhelp.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
-%{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
+%{_datadir}/glib-2.0/schemas/org.gnome.libdevhelp-3.gschema.xml
+#{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_iconsdir}/hicolor/*/apps/*.png
+%{_iconsdir}/hicolor/*/apps/*.svg
+#{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
 %{_datadir}/dbus-1/services/org.gnome.Devhelp.service
 %{_mandir}/man1/devhelp.1.*
+%{_datadir}/metainfo/org.gnome.Devhelp.appdata.xml
 
 %files -n %{libname}
 %{_libdir}/lib%{name}-%{api}.so.%{major}*
@@ -95,7 +114,11 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %files -n %{devname}
 %{_libdir}/lib%{name}-%{api}.so
 %{_libdir}/pkgconfig/lib%{name}-3.0.pc
-%{_includedir}/devhelp-3.0/
+%{_includedir}/%{name}-3
+%{_datadir}/gir-1.0/Devhelp-%{gir_api}.gir
+
+%files -n %{libnamegir}
+%{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
 
 %files -n %{name}-plugins
 %{_libdir}/gedit/plugins/*
