@@ -115,6 +115,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_libdir}/lib%{name}-%{api}.so
 %{_libdir}/pkgconfig/lib%{name}-3.0.pc
 %{_includedir}/%{name}-3
+%{_datadir}/gir-1.0/Devhelp-%{gir_api}.gir
 
 %files -n %{libnamegir}
 %{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
