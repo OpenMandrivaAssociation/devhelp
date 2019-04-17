@@ -34,6 +34,7 @@ BuildRequires:	intltool
 BuildRequires:	itstool
 BuildRequires:	libxml2-utils
 BuildRequires:	meson
+BuildRequires:  gtk-doc
 
 %description
 Devhelp is an API documentation browser for GNOME 2. It works
@@ -101,7 +102,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.libdevhelp-3.gschema.xml
 #{_datadir}/icons/hicolor/*/apps/%{name}.png
-%{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
 #{_datadir}/icons/hicolor/*/apps/%{name}-symbolic.svg
 %{_datadir}/dbus-1/services/org.gnome.Devhelp.service
@@ -116,6 +116,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_libdir}/pkgconfig/lib%{name}-3.0.pc
 %{_includedir}/%{name}-3
 %{_datadir}/gir-1.0/Devhelp-%{gir_api}.gir
+%{_datadir}/gtk-doc/html/devhelp-3/
 
 %files -n %{libnamegir}
 %{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
