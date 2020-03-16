@@ -10,8 +10,8 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.34.0
-Release:	2
+Version:	3.36.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
