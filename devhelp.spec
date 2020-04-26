@@ -10,7 +10,7 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.36.1
+Version:	3.36.2
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
