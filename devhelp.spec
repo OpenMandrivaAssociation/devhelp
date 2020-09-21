@@ -93,7 +93,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %find_lang %{name} --with-gnome
 
 %files -f %{name}.lang
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS README.md
 %{_bindir}/*
 %{_datadir}/applications/org.gnome.Devhelp.desktop
 #{_datadir}/GConf/gsettings/devhelp.convert
