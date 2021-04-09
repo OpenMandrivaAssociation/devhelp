@@ -10,12 +10,12 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	3.38.1
-Release:	1
+Version:	40
+Release:	0.alpha
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
-Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
+Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.alpha.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
@@ -76,7 +76,7 @@ Group:          System/Libraries
 GObject Introspection interface description for devhelp.
 
 %prep
-%autosetup -p1
+%autosetup -n %{name}-%{version}.alpha -p1
 
 %build
 %meson -Denable_gtk_doc=true
@@ -98,7 +98,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_datadir}/applications/org.gnome.Devhelp.desktop
 #{_datadir}/GConf/gsettings/devhelp.convert
 %{_datadir}/devhelp
-%{_datadir}/applications/org.gnome.Devhelp.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.libdevhelp-3.gschema.xml
 #{_datadir}/icons/hicolor/*/apps/%{name}.png
@@ -122,5 +121,5 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
 
 %files -n %{name}-plugins
-%{_libdir}/gedit/plugins/*
+#{_libdir}/gedit/plugins/*
 
