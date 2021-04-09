@@ -98,7 +98,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_datadir}/applications/org.gnome.Devhelp.desktop
 #{_datadir}/GConf/gsettings/devhelp.convert
 %{_datadir}/devhelp
-%{_datadir}/applications/org.gnome.Devhelp.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.devhelp.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.libdevhelp-3.gschema.xml
 #{_datadir}/icons/hicolor/*/apps/%{name}.png
@@ -122,5 +121,5 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
 
 %files -n %{name}-plugins
-%{_libdir}/gedit/plugins/*
+#{_libdir}/gedit/plugins/*
 
