@@ -60,13 +60,13 @@ Requires:	%{name} = %{version}-%{release}
 %description -n %{devname}
 This package contains the development files and headers for devhelp.
 
-%package -n %{name}-plugins
-Summary:	Gedit Plugins for Devhelp
-Group:		Editors
-Requires:	gedit
+#package -n %{name}-plugins
+#Summary:	Gedit Plugins for Devhelp
+#Group:		Editors
+#Requires:	gedit
 
-%description -n %{name}-plugins
-Gedit plugins to use with Devhelp.
+#description -n %{name}-plugins
+#Gedit plugins to use with Devhelp.
 
 %package -n %{libnamegir}
 Summary:        GObject Introspection interface description for devhelp
@@ -120,6 +120,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %files -n %{libnamegir}
 %{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
 
-%files -n %{name}-plugins
+#files -n %{name}-plugins
 #{_libdir}/gedit/plugins/*
 
