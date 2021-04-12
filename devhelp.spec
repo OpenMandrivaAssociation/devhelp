@@ -10,12 +10,12 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	40
-Release:	0.alpha
+Version:	40.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
-Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.alpha.tar.xz
+Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
@@ -76,7 +76,7 @@ Group:          System/Libraries
 GObject Introspection interface description for devhelp.
 
 %prep
-%autosetup -n %{name}-%{version}.alpha -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %meson -Denable_gtk_doc=true
