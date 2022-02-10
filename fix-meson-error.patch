@@ -1,0 +1,47 @@
+diff --git a/meson.build b/meson.build
+index e57e466..47ba0b3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -5,8 +5,8 @@
+ 
+ project(
+   'devhelp', 'c',
+-  meson_version: '>= 0.53',
+-  version: '41.2',
++  meson_version: '>= 0.55',
++  version: '41.3',
+   default_options: ['warning_level=2']
+ )
+ 
+diff --git a/data/meson.build b/data/meson.build
+index c6aeffb49c426939c3232ba8cbb08a49589ca129..0bc531a2793d4fcd039a05f75ed69de03201d603 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -19,7 +19,6 @@ appdata_conf = configuration_data()
+ appdata_conf.set('application_id', APPLICATION_ID)
+ appdata = APPLICATION_ID + '.appdata.xml'
+ appdata_file = I18N.merge_file(
+-  appdata,
+   input: configure_file(
+     input: 'org.gnome.Devhelp.appdata.xml.in.in',
+     output: APPLICATION_ID + '.appdata.xml.in',
+@@ -45,7 +44,6 @@ desktop_conf = configuration_data()
+ desktop_conf.set('application_id', APPLICATION_ID)
+ desktop = APPLICATION_ID + '.desktop'
+ desktop_file = I18N.merge_file(
+-  desktop,
+   type: 'desktop',
+   input: configure_file(
+     input: 'org.gnome.Devhelp.desktop.in.in',
+diff --git a/plugins/gedit-plugin/meson.build b/plugins/gedit-plugin/meson.build
+index 4f77988..877a01f 100644
+--- a/plugins/gedit-plugin/meson.build
++++ b/plugins/gedit-plugin/meson.build
+@@ -7,7 +7,6 @@ install_data(
+ 
+ plugin_info_file = 'devhelp.plugin'
+ I18N.merge_file(
+-  plugin_info_file,
+   type: 'desktop',
+   input: plugin_info_file + '.desktop.in',
+   output: plugin_info_file,

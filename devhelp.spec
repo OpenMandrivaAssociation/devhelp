@@ -16,7 +16,7 @@ License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
 Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
-
+Patch0:		fix-meson-error.patch
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
 BuildRequires:	gettext-devel
@@ -27,6 +27,12 @@ BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
 BuildRequires:	pkgconfig(webkit2gtk-4.0)
 BuildRequires:	pkgconfig(python)
+BuildRequires:	python3dist(jinja2)
+BuildRequires:	python3dist(markdown)
+BuildRequires:	python3dist(markupsafe)
+BuildRequires:	python3dist(pygments)
+BuildRequires:	python3dist(toml)
+BuildRequires:	python3dist(typogrify)
 BuildRequires:	pkgconfig(gio-2.0) >= 2.37.3
 BuildRequires:	pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
@@ -60,13 +66,14 @@ Requires:	%{name} = %{version}-%{release}
 %description -n %{devname}
 This package contains the development files and headers for devhelp.
 
-#package -n %{name}-plugins
-#Summary:	Gedit Plugins for Devhelp
-#Group:		Editors
-#Requires:	gedit
+%package -n %{name}-plugins
+Summary:	Gedit and Vim Plugins for Devhelp
+Group:		Editors
+Requires:	gedit 
+Requires:	vim
 
-#description -n %{name}-plugins
-#Gedit plugins to use with Devhelp.
+%description -n %{name}-plugins
+Gedit and Vim plugins to use with Devhelp.
 
 %package -n %{libnamegir}
 Summary:        GObject Introspection interface description for devhelp
@@ -79,7 +86,7 @@ GObject Introspection interface description for devhelp.
 %autosetup -n %{name}-%{version} -p1
 
 %build
-%meson -Denable_gtk_doc=true
+%meson -Dgtk_doc=true -Dplugin_gedit=true -Dplugin_vim=true
 %meson_build
 
 %install
@@ -94,6 +101,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 
 %files -f %{name}.lang
 %doc NEWS README.md
+%doc %{_docdir}/devhelp-3/*
 %{_bindir}/*
 %{_datadir}/applications/org.gnome.Devhelp.desktop
 #{_datadir}/GConf/gsettings/devhelp.convert
@@ -120,6 +128,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/books
 %files -n %{libnamegir}
 %{_libdir}/girepository-1.0/Devhelp-%{gir_api}.typelib
 
-#files -n %{name}-plugins
-#{_libdir}/gedit/plugins/*
-
+%files -n %{name}-plugins
+%{_libdir}/gedit/plugins/*
+%{_datadir}/vim/vimfiles/plugin/devhelp.vim
