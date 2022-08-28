@@ -16,7 +16,7 @@ License:	GPLv2+
 Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
 Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
-Patch0:		fix-meson-error.patch
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
 BuildRequires:	gettext-devel
