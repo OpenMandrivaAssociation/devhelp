@@ -17,6 +17,7 @@ Group:		Development/Other
 Url:		http://live.gnome.org/devhelp
 Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 
+BuildRequires:  appstream-util
 BuildRequires:	desktop-file-utils
 BuildRequires:	gnome-common
 BuildRequires:	gettext-devel
