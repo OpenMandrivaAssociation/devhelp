@@ -10,7 +10,7 @@
 
 Summary:	API documentation browser for developers
 Name:		devhelp
-Version:	41.3
+Version:	43.0
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
