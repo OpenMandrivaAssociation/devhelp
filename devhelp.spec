@@ -25,7 +25,8 @@ BuildRequires:  pkgconfig(amtk-5)
 BuildRequires:	pkgconfig(glib-2.0) >= 2.25.11
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.10.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.0.2
-BuildRequires:	pkgconfig(webkit2gtk-4.0)
+BuildRequires:	pkgconfig(webkit2gtk-4.1)
+BuildRequires:  pkgconfig(gi-docgen )
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python3dist(jinja2)
 BuildRequires:	python3dist(markdown)
