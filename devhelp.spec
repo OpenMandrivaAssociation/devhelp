@@ -11,11 +11,11 @@
 Summary:	API documentation browser for developers
 Name:		devhelp
 Version:	43.0
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Development/Other
-Url:		http://live.gnome.org/devhelp
-Source0:	http://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
+Url:		https://live.gnome.org/devhelp
+Source0:	https://ftp.acc.umu.se/pub/GNOME/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
 
 BuildRequires:  appstream-util
 BuildRequires:	desktop-file-utils
